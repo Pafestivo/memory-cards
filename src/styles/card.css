@@ -1,0 +1,29 @@
+.card {
+  width: 300px;
+  height: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: white;
+  background-color: rgb(194, 194, 197);;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  border-bottom: 2px solid rgb(175, 176, 189);
+}
+
+.card img {
+  width: 110%;
+  height: 200px;
+}
+
+.text-container h2 {
+  color: black;
+  text-align: center;
+  padding: 10px 20px;
+}
+
+.card:hover {
+  border-bottom: 2px solid black;
+}
