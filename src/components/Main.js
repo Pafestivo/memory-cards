@@ -20,7 +20,7 @@ const Main = () => {
       // then check if all flags are clicked
       let allFlagsClicked = flags.every(flag => flag.clicked)
       if(allFlagsClicked) {
-        resetGame()
+        resetGame(true)
         alert('You win')
         return
       }
@@ -31,8 +31,9 @@ const Main = () => {
     shuffle()
   }
 
-  const resetGame = () => {
-    if(score > bestScore) setBestScore(score)
+  const resetGame = (isWon) => {
+    if(isWon) setBestScore(8)
+    else if(score > bestScore) setBestScore(score)
     // reset all flags
     flags.forEach(flag => {
       flag.clicked = false
