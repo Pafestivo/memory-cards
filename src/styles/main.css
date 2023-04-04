@@ -1,8 +1,16 @@
 .main {
   display: flex;
-  justify-content: center;
-  align-items: top;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  row-gap: 20px;
   padding: 30px;
+}
+
+.scores {
+  display: flex;
+  column-gap: 50px;
+  font-size: 20px;
 }
 
 .cards-container {
@@ -15,4 +23,8 @@
   height: max-content;
   row-gap: 30px;
   column-gap: 30px;
+}
+
+.rules {
+  text-align: center;
 }
