@@ -1,27 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./Card";
-import canada from "../images/canada.jpg";
-import france from "../images/france.jpg";
-import germany from "../images/germany.jpg";
-import israel from "../images/israel.jpg";
-import italy from "../images/italy.jpg";
-import mexico from "../images/mexico.jpg";
-import russia from "../images/russia.jpg";
-import usa from "../images/usa.jpg";
+import flagsObject from "./flagsObject";
 import '../styles/main.css'
 
 const Main = () => {
+
+  const [flags, setFlags] = useState(flagsObject)
+
+  const shuffle = () => {
+    let shuffledFlags = []
+    let usedIndexes = []
+
+    let i = 0
+    while(i < flagsObject.length) {
+      let randomIndex = Math.floor(Math.random() * flagsObject.length)
+      if(!usedIndexes.includes(randomIndex)) {
+        shuffledFlags.push(flagsObject[randomIndex])
+        usedIndexes.push(randomIndex)
+        i++
+      }
+    }
+    setFlags(shuffledFlags)
+  }
+
   return (
     <div className="main">
       <div className="cards-container">
-        <Card src={canada} cardName="Flag of Canada"/>
-        <Card src={france} cardName="Flag of France"/>
-        <Card src={germany} cardName="Flag of Germany"/>
-        <Card src={israel} cardName="Flag of Israel"/>
-        <Card src={italy} cardName="Flag of Italy"/>
-        <Card src={mexico} cardName="Flag of Mexico"/>
-        <Card src={russia} cardName="Flag of Russia"/>
-        <Card src={usa} cardName="Flag of U.S.A"/>
+        {flags.map(flag => {
+          return <Card src={flag.img} cardName={flag.flagName} onClick={shuffle} key={flag.id}/>
+        })}
       </div>
     </div>
   )
