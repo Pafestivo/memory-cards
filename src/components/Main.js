@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import flagsObject from "./flagsObject";
 import '../styles/main.css'
@@ -8,6 +8,22 @@ const Main = () => {
   const [flags, setFlags] = useState(flagsObject)
   const [score, setScore] = useState(0)
   const [bestScore, setBestScore] = useState(0)
+  // make sure the images loaded before rendering the page
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  useEffect(() => {
+    const images = flags.map(flag => new Promise((resolve, reject) => {
+      const img = new Image()
+      img.onload = () => resolve(img)
+      img.onerror = () => reject(new Error(`Failed to load image ${flag.img}`))
+      img.src = flag.img
+    }))
+
+    Promise.all(images)
+      .then(() => setImagesLoaded(true))
+      .catch(console.error)
+  })
+
 
   const handleClick = (e) => {
     // eslint-disable-next-line
@@ -64,11 +80,16 @@ const Main = () => {
         <h2>Score: {score}</h2>
         <h2>Best Score: {bestScore}</h2>
       </div>
-      <div className="cards-container">
+      {imagesLoaded ? (
+        <div className="cards-container">
         {flags.map(flag => {
           return <Card src={flag.img} cardName={flag.flagName} onClick={handleClick} id={flag.id} key={flag.id}/>
         })}
       </div>
+      ) : (
+        <h1 className="loading">Game Loading...</h1>
+      )} 
+      
       <div className="rules">
         <h1>How to play</h1>
         <h3>
